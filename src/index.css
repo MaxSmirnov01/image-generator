@@ -5,9 +5,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.center {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 800px) {
+  .MuiImageList-root {
+    columns: 2 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .MuiImageList-root {
+    columns: 1 !important;
+  }
+}
+
+.MuiTabs-flexContainer {
+  justify-content: flex-end;
 }
