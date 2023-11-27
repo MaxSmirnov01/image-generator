@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination, Stack } from '@mui/material';
-import { setPage, setRequestedPage, defaultValues } from '../slices/pageSlice';
-import getData from '../api/getData';
+import { setPage, setRequestedPage, defaultValues } from '../../slices/pageSlice';
+import getData from '../../api/getData';
 
 const { contentCount } = defaultValues;
 

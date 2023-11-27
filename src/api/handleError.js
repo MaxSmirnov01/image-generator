@@ -1,4 +1,5 @@
 const handleError = (error) => {
+  console.log(error);
   const { data, status } = error;
   const message = data.errors.join('');
 

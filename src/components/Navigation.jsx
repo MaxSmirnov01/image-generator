@@ -1,32 +1,53 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Tab, Tabs } from '@mui/material';
+import { AppBar, Typography, MenuItem, Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SearchIcon from '@mui/icons-material/Search';
+import _ from 'lodash';
 import routes from '../routes';
+import ThemeButton from './Buttons/ThemeButton';
 
 const Navigation = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const tabs = [
-    { label: 'Поиск', icon: <SearchIcon />, route: routes.mainPath() },
-    { label: 'Избранное', icon: <FavoriteIcon />, route: routes.favoritesPath() },
+  const pages = [
+    { id: _.uniqueId(), label: 'Поиск', icon: <SearchIcon />, route: routes.mainPath() },
+    {
+      id: _.uniqueId(),
+      label: 'Избранное',
+      icon: pathname !== '/favorites' ? <FavoriteBorderIcon /> : <FavoriteIcon />,
+      route: routes.favoritesPath(),
+    },
   ];
 
-  const activeTabIndex = tabs.findIndex((tab) => location.pathname === tab.route);
-
-  const handleChange = (event, newValue) => {
-    const selectedTab = tabs[newValue];
-    navigate(selectedTab.route);
+  const handleClick = (path) => {
+    navigate(path);
   };
 
   return (
-    <Tabs value={activeTabIndex} onChange={handleChange} aria-label="tabs" sx={{ marginRight: '40px' }}>
-      {tabs.map((tab) => (
-        <Tab key={tab.label} icon={tab.icon} label={tab.label} iconPosition="start" />
-      ))}
-    </Tabs>
+    <AppBar
+      position="static"
+      sx={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '15px 15px 15px 31px',
+      }}
+    >
+      <Typography variant="h4" component="div">
+        Image Generator
+      </Typography>
+      <Box sx={{ display: 'flex' }}>
+        {pages.map((page) => (
+          <MenuItem key={page.id} onClick={() => handleClick(page.route)} sx={{ borderRadius: '5px' }}>
+            {page.icon}
+          </MenuItem>
+        ))}
+        <ThemeButton />
+      </Box>
+    </AppBar>
   );
 };
 

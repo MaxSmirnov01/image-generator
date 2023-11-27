@@ -31,13 +31,11 @@ const imgSlice = createSlice({
           ? payload.results.map((item) => ({
               id: item.id,
               url: item.urls.small,
-              description: item.alt_description,
               author: item.user.name,
             }))
           : payload.map((item) => ({
               id: item.id,
               url: item.urls.small,
-              description: item.alt_description,
               author: item.user.name,
             }));
 

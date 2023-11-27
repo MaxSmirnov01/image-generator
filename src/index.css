@@ -13,12 +13,7 @@ code {
     monospace;
 }
 
-.center {
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-}
-
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .MuiImageList-root {
     columns: 2 !important;
   }
@@ -28,8 +23,12 @@ code {
   .MuiImageList-root {
     columns: 1 !important;
   }
+  .MuiTypography-root {
+    font-size: 1rem !important;
+  }
+  .MuiTypography-h4 {
+    font-size: 1.5rem !important;
+  }
 }
 
-.MuiTabs-flexContainer {
-  justify-content: flex-end;
-}
+

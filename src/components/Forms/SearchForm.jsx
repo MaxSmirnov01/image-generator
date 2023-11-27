@@ -1,0 +1,55 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Box, Container, TextField } from '@mui/material';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import getData from '../../api/getData';
+import { addText, setFirstLoad } from '../../slices/imgSlice';
+import SearchButton from '../Buttons/SearchButton';
+
+const validationSchema = yup.object().shape({
+  text: yup.string().required('Обязательно').min(2, 'Минимум 2 символа'),
+});
+
+const SearchForm = () => {
+  const dispatch = useDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+      text: '',
+    },
+    validationSchema,
+    onSubmit: ({ text }) => {
+      dispatch(addText(text));
+      dispatch(setFirstLoad(true));
+      dispatch(getData({ text }));
+      formik.resetForm();
+    },
+  });
+
+  return (
+    <Box component="section" sx={{ padding: '50px 0 34px 0', borderColor: 'rgba(0, 0, 0, 0.87)' }}>
+      <Container maxWidth="sm" component="form" onSubmit={formik.handleSubmit}>
+        <TextField
+          fullWidth
+          size="small"
+          id="text"
+          label="Поддерживаются русский и английский языки"
+          variant="outlined"
+          type="text"
+          placeholder="Например: rabbit"
+          onChange={formik.handleChange}
+          value={formik.values.text}
+          error={!!formik.errors.text}
+          helperText={formik.errors.text}
+          autoFocus
+          InputProps={{
+            endAdornment: <SearchButton />,
+          }}
+        />
+      </Container>
+    </Box>
+  );
+};
+
+export default SearchForm;

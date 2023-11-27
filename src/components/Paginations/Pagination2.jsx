@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination, Stack } from '@mui/material';
-import { defaultValues, setFavoritePage } from '../slices/pageSlice';
+import { defaultValues, setFavoritePage } from '../../slices/pageSlice';
 
 const { contentCount } = defaultValues;
 

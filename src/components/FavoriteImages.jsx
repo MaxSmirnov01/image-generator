@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
-import DeleteButton from './DeleteButton';
-import Pagination2 from './Pagination2';
+import DeleteButton from './Buttons/DeleteButton';
+import Pagination2 from './Paginations/Pagination2';
 import { defaultValues } from '../slices/pageSlice';
 
 const { contentCount } = defaultValues;
@@ -24,14 +24,14 @@ const FavoriteImages = () => {
             sx={{
               border: '1px solid #ccc',
               borderRadius: '5px',
-              padding: '20px',
-              boxShadow: '0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.1)',
+              padding: '20px 20px 5px 20px',
+              boxShadow: '0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.2)',
             }}
           >
-            <img src={item.url} alt={item.description} loading="lazy" />
+            <img src={item.url || item.file} alt={item.description} loading="lazy" />
             <ImageListItemBar
-              title={item.description}
-              subtitle={<span>by: {item.author}</span>}
+              title={item.author && <span>Автор: {item.author}</span>}
+              subtitle={item.description && <span>Описание: {item.description}</span>}
               position="below"
               actionIcon={<DeleteButton item={item} />}
             />

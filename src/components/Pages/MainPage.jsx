@@ -1,10 +1,10 @@
 import React from 'react';
-import Form from './Form';
-import ImageListContainer from './ImageListContainer';
+import SearchForm from '../Forms/SearchForm';
+import ImageListContainer from '../ImageListContainer';
 
 const MainPage = () => (
   <div>
-    <Form />
+    <SearchForm />
     <ImageListContainer />
   </div>
 );
