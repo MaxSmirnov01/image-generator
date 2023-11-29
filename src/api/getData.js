@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import api from './apiUrls';
 
-const apiKey = 'UiRkY8kvxsMcQjlkjSEBu6_nJbUjZZI0svIAa1-GrjM';
+const apiKey = process.env.REACT_APP_UNSPLASH_TOKEN;
 
 const getData = createAsyncThunk('getData', async ({ text, requestedPage }, { rejectWithValue }) => {
   try {
