@@ -31,12 +31,16 @@ const imgSlice = createSlice({
           ? payload.results.map((item) => ({
               id: item.id,
               url: item.urls.small,
+              modalUrl: item.urls.regular,
               author: item.user.name,
+              description: item.alt_description,
             }))
           : payload.map((item) => ({
               id: item.id,
               url: item.urls.small,
+              modalUrl: item.urls.regular,
               author: item.user.name,
+              description: item.alt_description,
             }));
 
         if (state.isFirstLoad) {
