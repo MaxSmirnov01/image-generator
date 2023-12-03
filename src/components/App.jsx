@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navigation from './Navigation';
 import MainPage from './Pages/MainPage';
 import FavoritePage from './Pages/FavoritePage';
+import NotFound from './Pages/404notFound';
 import routes from '../routes';
 import ColorModeContext from '../contexts';
 import setDisign from '../theme';
@@ -35,6 +36,7 @@ const App = () => {
             <Routes>
               <Route path={routes.mainPath()} element={<MainPage />} />
               <Route path={routes.favoritesPath()} element={<FavoritePage />} />
+              <Route path={routes.notFoundPath()} element={<NotFound />} />
             </Routes>
           </Router>
           <ToastContainer />
