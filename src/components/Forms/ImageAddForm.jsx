@@ -30,7 +30,7 @@ const ImageAddForm = () => {
     validationSchema,
     onSubmit: ({ url, description, author, file }) => {
       const id = _.uniqueId();
-      dispatch(addFavorite({ id, url, description, author, file }));
+      dispatch(addFavorite({ id, url, modalUrl: url, description, author, file }));
       formik.resetForm({
         values: {
           ...formik.initialValues,
