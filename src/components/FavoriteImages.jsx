@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
+import { Box, ImageList, ImageListItem, ImageListItemBar, Paper } from '@mui/material';
 import DeleteButton from './Buttons/DeleteButton';
 import Pagination2 from './Paginations/Pagination2';
 import Modal from './Modal';
@@ -28,32 +28,27 @@ const FavoriteImages = () => {
 
   return (
     <Box component="section" sx={{ margin: '30px 40px' }}>
-      <ImageList variant="masonry" gap={20} cols={3}>
+      <ImageList variant="masonry" gap={20} cols={3} sx={{ overflowY: 'visible' }}>
         {currentImages.map((item) => (
-          <ImageListItem
-            key={item.id}
-            sx={{
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              padding: '20px 20px 5px 20px',
-              boxShadow: '0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            <Box sx={{ cursor: 'zoom-in' }} onClick={() => handleImageClick(item.id)}>
-              <img
-                src={item.url || item.file}
-                alt={item.description}
-                loading="lazy"
-                style={{ width: '100%', height: 'auto', display: 'block' }}
+          <Paper elevation={6} key={item.id}>
+            <ImageListItem sx={{ p: 1 }}>
+              <Box sx={{ cursor: 'zoom-in' }} onClick={() => handleImageClick(item.id)}>
+                <img
+                  src={item.url || item.file}
+                  alt={item.description}
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+              </Box>
+              <ImageListItemBar
+                title={item.author && <span>Автор: {item.author}</span>}
+                subtitle={item.description && <span>Описание: {item.description}</span>}
+                position="below"
+                sx={{ paddingTop: '6px', paddingLeft: '8px', alignItems: 'center' }}
+                actionIcon={<DeleteButton item={item} />}
               />
-            </Box>
-            <ImageListItemBar
-              title={item.author && <span>Автор: {item.author}</span>}
-              subtitle={item.description && <span>Описание: {item.description}</span>}
-              position="below"
-              actionIcon={<DeleteButton item={item} />}
-            />
-          </ImageListItem>
+            </ImageListItem>
+          </Paper>
         ))}
       </ImageList>
       <Pagination2 favoriteImages={favoriteImages} currentImages={currentImages} />

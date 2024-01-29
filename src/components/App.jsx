@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { useMediaQuery } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navigation from './Navigation';
@@ -13,7 +14,8 @@ import ColorModeContext from '../contexts';
 import setDisign from '../theme';
 
 const App = () => {
-  const [mode, setMode] = useState('light');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const [mode, setMode] = useState(prefersDarkMode ? 'dark' : 'light');
 
   const colorMode = React.useMemo(
     () => ({
@@ -30,17 +32,15 @@ const App = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div>
-          <Router>
-            <Navigation />
-            <Routes>
-              <Route path={routes.mainPath()} element={<MainPage />} />
-              <Route path={routes.favoritesPath()} element={<FavoritePage />} />
-              <Route path={routes.notFoundPath()} element={<NotFound />} />
-            </Routes>
-          </Router>
-          <ToastContainer />
-        </div>
+        <Router>
+          <Navigation />
+          <Routes>
+            <Route path={routes.mainPath()} element={<MainPage />} />
+            <Route path={routes.favoritesPath()} element={<FavoritePage />} />
+            <Route path={routes.notFoundPath()} element={<NotFound />} />
+          </Routes>
+        </Router>
+        <ToastContainer />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

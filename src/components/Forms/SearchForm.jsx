@@ -34,7 +34,7 @@ const SearchForm = () => {
           fullWidth
           size="small"
           id="text"
-          label="Поддерживаются русский и английский языки"
+          label="support ru/en"
           variant="outlined"
           type="text"
           placeholder="Например: rabbit"
@@ -44,6 +44,7 @@ const SearchForm = () => {
           helperText={formik.errors.text}
           autoFocus
           InputProps={{
+            sx: { p: 0 },
             endAdornment: <SearchButton />,
           }}
         />

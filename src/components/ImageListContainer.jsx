@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
+import { Box, ImageList, ImageListItem, ImageListItemBar, Paper, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 import getData from '../api/getData';
 import Pagination1 from './Paginations/Pagination1';
@@ -16,6 +17,7 @@ const { contentCount } = defaultValues;
 const ImageListContainer = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const theme = useTheme();
 
   const { images, isFirstLoad, error } = useSelector((state) => state.images);
   const { page } = useSelector((state) => state.pages);
@@ -37,6 +39,7 @@ const ImageListContainer = () => {
     toast.error(message, {
       position: 'top-left',
       icon: '🆘',
+      theme: theme.palette.mode === 'light' ? 'light' : 'dark',
     });
   }
 
@@ -50,37 +53,32 @@ const ImageListContainer = () => {
   };
 
   return (
-    <Box component="section" sx={{ padding: '0 40px 30px 40px' }}>
-      <ImageList variant="masonry" gap={20} cols={3}>
+    <Box component="section" sx={{ margin: '0 40px 30px 40px' }}>
+      <ImageList variant="masonry" gap={20} cols={3} sx={{ overflowY: 'visible' }}>
         {currentImages.map((item) => (
-          <ImageListItem
-            key={item.id}
-            sx={{
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              padding: '20px 20px 5px 20px',
-              boxShadow: '0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            <Box sx={{ cursor: 'zoom-in' }} onClick={() => handleImageClick(item.id)}>
-              <img
-                src={item.url}
-                alt={item.description}
-                loading="lazy"
-                style={{ width: '100%', height: 'auto', display: 'block' }}
+          <Paper elevation={6} key={item.id}>
+            <ImageListItem sx={{ p: 1 }}>
+              <Box sx={{ cursor: 'zoom-in' }} onClick={() => handleImageClick(item.id)}>
+                <img
+                  src={item.url}
+                  alt={item.description}
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+              </Box>
+              <ImageListItemBar
+                title={<Typography component="span">Автор: {item.author}</Typography>}
+                position="below"
+                sx={{ paddingTop: '14px', paddingLeft: '8px' }}
+                actionIcon={
+                  <Box sx={{ display: 'flex' }}>
+                    <LikeButton item={item} />
+                    <DownloadButton item={item} />
+                  </Box>
+                }
               />
-            </Box>
-            <ImageListItemBar
-              title={<span>Автор: {item.author}</span>}
-              position="below"
-              actionIcon={
-                <Box sx={{ display: 'flex' }}>
-                  <LikeButton item={item} />
-                  <DownloadButton item={item} />
-                </Box>
-              }
-            />
-          </ImageListItem>
+            </ImageListItem>
+          </Paper>
         ))}
       </ImageList>
       <Pagination1 />
